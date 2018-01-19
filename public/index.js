@@ -167,11 +167,21 @@ function EuroVolume()
                                     else Price = Price * 0.7;
                                 }
                             else Price = Price *0.9;
-                            console.log(Price);
+                            var comission = Price * 0.7;
+                            var insurance = comission * 0.5;
+                            var treasury = Math.round(deliveries[i].distance/500) +1;
+                            var convargo = comission - insurance - treasury;                        
+                            console.log("id: " + deliveries[i].truckerId);
+                            console.log("price: " +Price);
+                            console.log("comission: "+ comission);
+                            console.log("insurance: " +insurance);
+                            console.log("treasury: " + treasury);
+                            console.log("convargo: " + convargo);
                         }
                 }
         }
 }
+
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
