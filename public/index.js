@@ -226,8 +226,58 @@ function Deductible()
     
 }
 
+function PayTheActors()
+{
+  for(var i=0;i < deliveries.length; i++ )
+        {
+            
+            for(var j =0; j< truckers.length; j++)
+                {
+                    if(deliveries[i].truckerId == truckers[j].id)
+                        {
+                            var Price = deliveries[i].distance * truckers[j].pricePerKm + deliveries[i].volume * truckers[j].pricePerVolume;
+                            if(deliveries[i].volume > 5)
+                                {
+                                    if(deliveries[i].volume > 10)
+                                        {
+                                            if(deliveries[i].volume > 25)
+                                                {
+                                                    Price = Price * 0.5;
+                                                }
+                                        }
+                                    else Price = Price * 0.7;
+                                }
+                            else Price = Price *0.9;
+                              
+                            var PriceWithoutDeductible = Price;
+                            if(deliveries[i].options.deductibleReduction == false)
+                                {
+                                     
+                                    Price = Price + 1000;
+                                }
+                            else
+                                {
+                                    Price = Price + 200 + deliveries[i].volume;
+                                }
+                            var comission = PriceWithoutDeductible * 0.3;
+                            var insurance = comission * 0.5;
+                            var treasury = Math.round(deliveries[i].distance/500) +1;
+                            var convargo = comission - insurance - treasury; 
+                            console.log("id: " + deliveries[i].truckerId);
+                            console.log("total price: " +Price);
+                            console.log("shipper: " + PriceWithoutDeductible *0.7)
+                            console.log("comission: "+ comission);
+                            console.log("insurance: " +insurance);
+                            console.log("treasury: " + treasury);
+                            console.log("convargo: " + convargo);
+                        }
+                }
+        }  
+}
+
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
 //EuroVolume();
-Deductible();
+//Deductible();
+PayTheActors();
