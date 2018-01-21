@@ -182,7 +182,52 @@ function EuroVolume()
         }
 }
 
+function Deductible()
+{
+    for(var i=0;i < deliveries.length; i++ )
+        {
+            
+            for(var j =0; j< truckers.length; j++)
+                {
+                    if(deliveries[i].truckerId == truckers[j].id)
+                        {
+                            var Price = deliveries[i].distance * truckers[j].pricePerKm + deliveries[i].volume * truckers[j].pricePerVolume;
+                            if(deliveries[i].volume > 5)
+                                {
+                                    if(deliveries[i].volume > 10)
+                                        {
+                                            if(deliveries[i].volume > 25)
+                                                {
+                                                    Price = Price * 0.5;
+                                                }
+                                        }
+                                    else Price = Price * 0.7;
+                                }
+                            else Price = Price *0.9;
+                            
+                            if(deliveries[i].options.deductibleReduction == false)
+                                {
+                                    console.log("id: " +deliveries[i].id);
+                                    console.log("deductible false");
+                                    Price = Price + 1000;
+                                }
+                            else
+                                {
+                                    console.log("id: " +deliveries[i].id);
+                                    console.log("deductible true");
+                                    Price = Price + 200 + deliveries[i].volume;
+                                }
+                      
+                            console.log("price: " +Price);
+
+                        }
+                }
+        }
+    
+}
+
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
-EuroVolume();
+//EuroVolume();
+Deductible();
